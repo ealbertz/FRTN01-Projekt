@@ -5,22 +5,21 @@ public class Main {
     public static void main(String[] argv) { 
 
         final int regulPriority = 8; 
-        final int refGenPriority = 6; 
-        final int plotterPriority = 7; 
 
-        ReferenceGenerator refgen = new ReferenceGenerator(refGenPriority); 
+        
         Regul regul = new Regul(regulPriority); 
-	final  OpCom opcom = new OpCom(plotterPriority); // Must be declared final since it is used in an inner class
+	final  OpCom opcom = new OpCom(); // Must be declared final since it is used in an inner class
 
         regul.setOpCom(opcom); 
-        regul.setRefGen(refgen);
  
-        opcom.setRegul(regul); 
+       // opcom.setRegul(regul); 
 
 	Runnable initializeGUI = new Runnable(){
 		public void run(){
 		    opcom.initializeGUI();
+		    Reader reader = new Reader(opcom);
 		    opcom.start();
+		    reader.start();
 		}
 	};
 	try{
@@ -29,7 +28,6 @@ public class Main {
 	    return;
 	}
 
-        refgen.start(); 
         regul.start(); 
     } 
 } 

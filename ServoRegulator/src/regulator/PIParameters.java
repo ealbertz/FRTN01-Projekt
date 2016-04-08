@@ -2,10 +2,9 @@ package regulator;
 public class PIParameters implements Cloneable {
 	double K;
 	double Ti;
-	double Tr;
 	double Beta;
-	double H;
-	boolean integratorOn;
+	double h;
+
 	
 	public Object clone() {
 		try {

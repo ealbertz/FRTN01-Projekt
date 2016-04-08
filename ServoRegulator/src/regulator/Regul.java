@@ -1,4 +1,5 @@
 package regulator;
+
 import java.io.IOException;
 
 import se.lth.control.DoublePoint;
@@ -9,17 +10,15 @@ import se.lth.control.realtime.Semaphore;
 
 public class Regul extends Thread {
 	public static final int OFF = 0;
-	public static final int BEAM = 1;
-	public static final int BALL = 2;
+	public static final int VEL = 1;
+	public static final int POS = 2;
 
-	private PI inner = new PI("PI");
-	private PID outer = new PID("PID");
+	private PI velController = new PI("VelocityController");
 
-	private AnalogIn analogInAngle;
+	private AnalogIn analogInVelocity;
 	private AnalogIn analogInPosition;
 	private AnalogOut analogOut;
 
-	private ReferenceGenerator referenceGenerator;
 	private OpCom opcom;
 
 	private int priority;
@@ -28,8 +27,8 @@ public class Regul extends Thread {
 	private Semaphore mutex; // used for synchronization at shut-down
 
 	private ModeMonitor modeMon;
-	private double uMin = -10.0;
-	private double uMax = 10.0;
+	private double uMin = -5.0;
+	private double uMax = 5.0;
 
 	// Inner monitor class
 	class ModeMonitor {
@@ -38,8 +37,7 @@ public class Regul extends Thread {
 		// Synchronized access methods
 		public synchronized void setMode(int newMode) {
 			mode = newMode;
-			inner.reset();
-			outer.reset();
+			velController.reset();
 		}
 
 		public synchronized int getMode() {
@@ -51,7 +49,7 @@ public class Regul extends Thread {
 		priority = pri;
 		mutex = new Semaphore(1);
 		try {
-			analogInAngle = new AnalogIn(0);
+			analogInVelocity = new AnalogIn(0);
 			analogInPosition = new AnalogIn(1);
 			analogOut = new AnalogOut(0);
 		} catch (IOChannelException e) {
@@ -65,10 +63,6 @@ public class Regul extends Thread {
 		this.opcom = opcom;
 	}
 
-	public void setRefGen(ReferenceGenerator referenceGenerator) {
-		this.referenceGenerator = referenceGenerator;
-	}
-
 	// Called in every sample in order to send plot data to OpCom
 	private void sendDataToOpCom(double yref, double y, double u) {
 		double x = (double) (System.currentTimeMillis() - starttime) / 1000.0;
@@ -78,32 +72,16 @@ public class Regul extends Thread {
 		opcom.putMeasurementDataPoint(pd);
 	}
 
-	public synchronized void setInnerParameters(PIParameters p) {
-		inner.setParameters(p);
-	}
-
-	public synchronized PIParameters getInnerParameters() {
-		return inner.getParameters();
-	}
-
-	public synchronized void setOuterParameters(PIDParameters p) {
-		outer.setParameters(p);
-	}
-
-	public synchronized PIDParameters getOuterParameters() {
-		return outer.getParameters();
-	}
-
 	public void setOFFMode() {
 		modeMon.setMode(OFF);
 	}
 
 	public void setBEAMMode() {
-		modeMon.setMode(BEAM);
+		modeMon.setMode(VEL);
 	}
 
 	public void setBALLMode() {
-		modeMon.setMode(BALL);
+		modeMon.setMode(POS);
 	}
 
 	public int getMode() {
@@ -143,84 +121,85 @@ public class Regul extends Thread {
 				// Written by you.
 				// Should include resetting the controllers
 				// Should include a call to sendDataToOpCom
-				inner.reset();
-				outer.reset();
+				velController.reset();
 				sendDataToOpCom(0.0, 0.0, 0.0);
 
 				break;
 			}
-			case BEAM: {
-				// Code for the BEAM mode
-				// Written by you.analogInAngle.get()
+			case VEL: {
+				// Code for the VEL mode
+				// Written by you.analogInVelocity.get()
 				// Should include a call to sendDataToOpCom
 
-				double yAngle = 0;
+				double yVelocity = 0;
 				double u = 0;
 				double yref = 0;
 
-				synchronized (inner) {
-					yref = referenceGenerator.getRef();
+				synchronized (velController) {
 
 					try {
-						yAngle = analogInAngle.get();
-						u = inner.calculateOutput(yAngle, yref);
-						analogOut.set(u);
+						yVelocity = analogInVelocity.get();
+						u = velController.calculateOutput(yVelocity);
+						analogOut.set(limit(u, uMin, uMax));
 					} catch (IOException e) {
 						System.out.println(e.getStackTrace());
 					}
 
 				}
-				sendDataToOpCom(yref, yAngle, u);
+				sendDataToOpCom(yref, yVelocity, u);
 
 				break;
 			}
-			case BALL: {
-				// Code for the BALL mode
-				// Written by you.
-				// Should include a call to sendDataToOpCom
-				double yPos = 0;
-				double yAngle = 0;
-				double u = 0;
-				double yref = 0;
-				double angleRef = 0;
-				synchronized (outer) {
-					try {
-						yref = referenceGenerator.getRef();
-
-						yPos = analogInPosition.get();
-
-						synchronized (inner) {
-							yAngle = analogInAngle.get();
-							angleRef = outer.calculateOutput(yPos, yref);
-							outer.updateState(angleRef);
-							u = limit(inner.calculateOutput(yAngle, angleRef),uMin,uMax);
-							analogOut.set(u);
-							inner.updateState(u);
-						}
-
-					} catch (IOException e) {
-						System.out.println(e.getStackTrace());
-					}
-				}
-				sendDataToOpCom(yref, yPos, u);
-				break;
+			case POS: {
+				// // Code for the BALL mode
+				// // Written by you.
+				// // Should include a call to sendDataToOpCom
+				// double yPos = 0;
+				// double yAngle = 0;
+				// double u = 0;
+				// double yref = 0;
+				// double angleRef = 0;
+				// synchronized (outer) {
+				// try {
+				// yref = referenceGenerator.getRef();
+				//
+				// yPos = analogInPosition.get();
+				//
+				// synchronized (inner) {
+				// yAngle = analogInAngle.get();
+				// angleRef = outer.calculateOutput(yPos, yref);
+				// outer.updateState(angleRef);
+				// u = limit(inner.calculateOutput(yAngle, angleRef),uMin,uMax);
+				// analogOut.set(u);
+				// inner.updateState(u);
+				// }
+				//
+				// } catch (IOException e) {
+				// System.out.println(e.getStackTrace());
+				// }
+				// }
+				// sendDataToOpCom(yref, yPos, u);
+				// break;
+				// }
+				// default: {
+				// System.out.println("Error: Illegal mode.");
+				// break;
+				// }
+				// }
+				//
+				// // sleep
+				// t = t + inner.getHMillis();
+				// duration = t - System.currentTimeMillis();
+				// if (duration > 0) {
+				// try {
+				// sleep(duration);
+				// } catch (InterruptedException x) {
+				// }
+				// }
 			}
-			default: {
-				System.out.println("Error: Illegal mode.");
-				break;
-			}
+				mutex.give();
 			}
 
-			// sleep
-			t = t + inner.getHMillis();
-			duration = t - System.currentTimeMillis();
-			if (duration > 0) {
-				try {
-					sleep(duration);
-				} catch (InterruptedException x) {
-				}
-			}
 		}
-		mutex.give();
 	}
 }
