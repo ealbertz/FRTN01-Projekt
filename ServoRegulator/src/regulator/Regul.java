@@ -14,11 +14,11 @@ public class Regul extends Thread {
 	public static final int POS = 2;
 
 	private PI velController = new PI("VelocityController");
+	private ControllerWithObserver posController = new ControllerWithObserver();
 
 	private AnalogIn velChan;
 	private AnalogIn posChan;
-	private AnalogIn ctrlChan;
-	private AnalogOut analogOut;
+	private AnalogOut ctrlChan;
 	private OpCom opcom;
 
 	private int priority;
@@ -26,8 +26,8 @@ public class Regul extends Thread {
 	private long starttime;
 	private Semaphore mutex; // used for synchronization at shut-down
 	private ModeMonitor modeMon;
-	private double uMin = -5.0;
-	private double uMax = 5.0;
+	private double uMin = -10;
+	private double uMax = 10;
 
 	// Inner monitor class
 	class ModeMonitor {
@@ -49,8 +49,7 @@ public class Regul extends Thread {
 		try {
 			velChan = new AnalogIn(0);
 			posChan = new AnalogIn(1);
-			ctrlChan = new AnalogIn(2); //OBS Denna behövs inte sen.
-			analogOut = new AnalogOut(0);
+			ctrlChan = new AnalogOut(0);
 		} catch (IOChannelException e) {
 			System.out.println("Regul");
 			System.out.print("Error:setMode(int newMode) {IOChannelException: ");
@@ -64,24 +63,15 @@ public class Regul extends Thread {
 		this.opcom = opcom;
 	}
 
-	// Called in every sample in order to send plot data to OpCom
-	private void sendDataToOpCom(double yref, double y, double u) {
-		double x = (double) (System.currentTimeMillis() - starttime) / 1000.0;
-		DoublePoint dp = new DoublePoint(x, u);
-		PlotData pd = new PlotData(x, yref, y);
-		opcom.putControlDataPoint(dp);
-		opcom.putMeasurementDataPoint(pd);
-	}
-
 	public void setOFFMode() {
 		modeMon.setMode(OFF);
 	}
 
-	public void setBEAMMode() {
+	public void setVELMode() {
 		modeMon.setMode(VEL);
 	}
 
-	public void setBALLMode() {
+	public void setPOSMode() {
 		modeMon.setMode(POS);
 	}
 
@@ -94,7 +84,7 @@ public class Regul extends Thread {
 		WeShouldRun = false;
 		mutex.take();
 		try {
-			analogOut.set(0.0);
+			ctrlChan.set(0.0);
 		} catch (IOChannelException x) {
 		}
 	}
@@ -109,7 +99,7 @@ public class Regul extends Thread {
 	}
 
 	public void run() {
-		final long h = 25;
+		final long h = 50;
 		long duration;
 		long t = System.currentTimeMillis();
 		starttime = t;
@@ -122,15 +112,13 @@ public class Regul extends Thread {
 		while (WeShouldRun) {
 			switch (modeMon.getMode()) {
 			case OFF: {
-				// Code for the OFF mode.
-				// Written by you.
 				// Should include resetting the controllers
 				// Should include a call to sendDataToOpCom
 				velController.reset();
 				try {
 					vel = velChan.get();
 					pos = posChan.get();
-					ctrl = ctrlChan.get();
+					ctrlChan.set(ctrl);
 				} catch (Exception e) {
 					System.out.println(e);
 				} 
@@ -140,44 +128,6 @@ public class Regul extends Thread {
 				dp = new DoublePoint(realTime,ctrl);
 				opcom.putControlDataPoint(dp);
 
-				realTime += ((double) h)/1000.0;
-
-								t += h;
-								duration = (int) (t - System.currentTimeMillis());
-								if (duration > 0) {
-									 try {
-										  sleep(duration);
-									 } catch (Exception e) {}
-								}
-
-				break;
-			}
-			case VEL: {
-				// Code for the VEL mode
-				// Written by you.analogInVelocity.get()
-				// Should include a call to sendDataToOpCom
-
-
-				double u = 0;
-				double yref = 0;
-
-				synchronized (velController) {
-
-					try {
-						vel = velChan.get();
-						pos = posChan.get();
-						ctrl = ctrlChan.get();
-						u = velController.calculateOutput(vel);
-						analogOut.set(limit(u, uMin, uMax));
-					} catch (IOException e) {
-						System.out.println(e.getStackTrace());
-					}
-
-				}
-				pd = new PlotData(realTime, pos, vel);				
-				opcom.putMeasurementDataPoint(pd);				
-				dp = new DoublePoint(realTime, ctrl);
-				opcom.putControlDataPoint(dp);
 				realTime += ((double) h)/1000.0;
 
 				t += h;
@@ -190,58 +140,82 @@ public class Regul extends Thread {
 
 				break;
 			}
+			case VEL: {
+				double u = 0;
+				double v = 0;
+				double r = 5;
+
+				synchronized (velController) {
+
+					try {
+						vel = velChan.get();
+						pos = posChan.get();
+						v = velController.calculateOutput(r,vel);
+						u=limit(v, uMin, uMax);
+						ctrlChan.set(u);
+
+					} catch (IOException e) {
+						System.out.println(e.getStackTrace());
+					}
+				}
+				velController.updateState(r, vel);
+				//System.out.println(v);
+				pd = new PlotData(realTime, pos, vel);				
+				opcom.putMeasurementDataPoint(pd);				
+				dp = new DoublePoint(realTime,u);
+				opcom.putControlDataPoint(dp);
+
+				realTime += ((double) h)/1000.0;
+				t += h;
+				duration = (int) (t - System.currentTimeMillis());
+				if (duration > 0) {
+					try {
+						sleep(duration);
+					} catch (Exception e) {}
+				}
+
+				break;
+			}
 			case POS: {
-				// // Code for the BALL mode
-				// // Written by you.
-				// // Should include a call to sendDataToOpCom
-				// double yPos = 0;
-				// double yAngle = 0;
-				// double u = 0;
-				// double yref = 0;
-				// double angleRef = 0;
-				// synchronized (outer) {
-				// try {
-				// yref = referenceGenerator.getRef();
-				//
-				// yPos = analogInPosition.get();
-				//
-				// synchronized (inner) {
-				// yAngle = analogInAngle.get();
-				// angleRef = outer.calculateOutput(yPos, yref);
-				// outer.updateState(angleRef);
-				// u = limit(inner.calculateOutput(yAngle, angleRef),uMin,uMax);
-				// analogOut.set(u);
-				// inner.updateState(u);
-				// }
-				//
-				// } catch (IOException e) {
-				// System.out.println(e.getStackTrace());
-				// }
-				// }
-				// sendDataToOpCom(yref, yPos, u);
-				// break;
-				// }
-				// default: {
-				// System.out.println("Error: Illegal mode.");
-				// break;
-				// }
-				// }
-				//
-			
-			//sleep
-			t = t + h;
-			duration = t - System.currentTimeMillis();
-			if (duration > 0) {
-				try {
-					sleep(duration);
-				} catch (InterruptedException x) {
+
+				double u = 0;
+				double v = 0;
+				double r = 5;
+
+				synchronized (posController) {
+
+					try {
+						vel = velChan.get();
+						pos = posChan.get();
+						v = posController.calculateOutput(r,pos);
+						u=limit(v,uMin, uMax);
+						ctrlChan.set(u);
+
+					} catch (IOException e) {
+						System.out.println(e.getStackTrace());
+					}
+
+				}
+				posController.updateState(r, pos);
+				//System.out.println(v);
+				pd = new PlotData(realTime, pos, vel);				
+				opcom.putMeasurementDataPoint(pd);				
+				dp = new DoublePoint(realTime,u);
+				opcom.putControlDataPoint(dp);
+
+				realTime += ((double) h)/1000.0;
+				t += h;
+				duration = (int) (t - System.currentTimeMillis());
+				if (duration > 0) {
+					try {
+						sleep(duration);
+					} catch (InterruptedException x) {
+					}
 				}
 			}
-			}
 			mutex.give();
+			}
 		}
-
 	}
-}
 }
 

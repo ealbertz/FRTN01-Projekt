@@ -11,90 +11,92 @@ import se.lth.control.realtime.*;
 
 
 
-class Reader extends Thread {
-
-    private OpCom opcom;
-
-    private boolean doIt = true;
-
-	 AnalogIn velChan, posChan, ctrlChan;
-
-    /** Constructor. Sets initial values of the controller parameters and initial mode. */
-    public Reader(OpCom opcom) {
-
-		  this.opcom = opcom;
-
-    }
-
-    /** Run method. Sends data periodically to Opcom. */
-    public void run() {
-		  final long h = 25; // period (ms)
-		  long duration;
-		  long t = System.currentTimeMillis();
-		  DoublePoint dp;
-		  PlotData pd;
-		  double vel = 0, pos = 0, ctrl = 0;
-		  double realTime = 0;
-
-		  try {
-				velChan = new AnalogIn(0);
-				posChan = new AnalogIn(1);
-				ctrlChan = new AnalogIn(2);
-		  } catch (Exception e) {
-			  System.out.println("Reader.start()");
-				System.out.println(e);
-		  } 
-
-		  setPriority(7);
-
-		  while (doIt) {
-				try {
-					 vel = velChan.get();
-					 pos = posChan.get();
-					 ctrl = ctrlChan.get();
-				} catch (Exception e) {
-					 System.out.println(e);
-				} 
-
-				pd = new PlotData(realTime,pos,vel);
-				opcom.putMeasurementDataPoint(pd);
-	    
-				dp = new DoublePoint(realTime,ctrl);
-				opcom.putControlDataPoint(dp);
-
-				realTime += ((double) h)/1000.0;
-
-				t += h;
-				duration = (int) (t - System.currentTimeMillis());
-				if (duration > 0) {
-					 try {
-						  sleep(duration);
-					 } catch (Exception e) {}
-				}
-		  }
-    }
-
-    /** Stops the thread. */
-    private void stopThread() {
-		  doIt = false;
-    }
-
-    /** Called by Opcom when the Stop button is pressed. */ 
-    public synchronized void shutDown() {
-		  stopThread();
-    } 
-
-}
+//class Reader extends Thread {
+//
+//    private OpCom opcom;
+//
+//    private boolean doIt = true;
+//
+//	 AnalogIn velChan, posChan, ctrlChan;
+//
+//    /** Constructor. Sets initial values of the controller parameters and initial mode. */
+//    public Reader(OpCom opcom) {
+//
+//		  this.opcom = opcom;
+//
+//    }
+//
+//    /** Run method. Sends data periodically to Opcom. */
+//    public void run() {
+//		  final long h = 25; // period (ms)
+//		  long duration;
+//		  long t = System.currentTimeMillis();
+//		  DoublePoint dp;
+//		  PlotData pd;
+//		  double vel = 0, pos = 0, ctrl = 0;
+//		  double realTime = 0;
+//
+//		  try {
+//				velChan = new AnalogIn(0);
+//				posChan = new AnalogIn(1);
+//				ctrlChan = new AnalogIn(2);
+//		  } catch (Exception e) {
+//			  System.out.println("Reader.start()");
+//				System.out.println(e);
+//		  } 
+//
+//		  setPriority(7);
+//
+//		  while (doIt) {
+//				try {
+//					 vel = velChan.get();
+//					 pos = posChan.get();
+//					 ctrl = ctrlChan.get();
+//				} catch (Exception e) {
+//					 System.out.println(e);
+//				} 
+//
+//				pd = new PlotData(realTime,pos,vel);
+//				opcom.putMeasurementDataPoint(pd);
+//	    
+//				dp = new DoublePoint(realTime,ctrl);
+//				opcom.putControlDataPoint(dp);
+//
+//				realTime += ((double) h)/1000.0;
+//
+//				t += h;
+//				duration = (int) (t - System.currentTimeMillis());
+//				if (duration > 0) {
+//					 try {
+//						  sleep(duration);
+//					 } catch (Exception e) {}
+//				}
+//		  }
+//    }
+//
+//    /** Stops the thread. */
+//    private void stopThread() {
+//		  doIt = false;
+//    }
+//
+//    /** Called by Opcom when the Stop button is pressed. */ 
+//    public synchronized void shutDown() {
+//		  stopThread();
+//    } 
+//
+//}
 
 
 /** Class that creates and maintains a GUI for the Ball and Beam process. 
 	 Uses two internal threads to update plotters */
 
-public class OpCom {    
-
+public class OpCom {   
+	
+	private Regul regul;
+	private int priority;
     private PlotterPanel measurementPlotter; // has internal thread
     private PlotterPanel controlPlotter; // has internal thread
-    
+    private int mode;
     // Declaration of main frame.
     private JFrame frame;
 
@@ -106,9 +108,15 @@ public class OpCom {
     private int divGrid = 5;     // Number of grids on time axis
 
     private boolean hChanged = false; 
+    
+    private JRadioButton offModeButton;
+	private JRadioButton velModeButton;
+	private JRadioButton posModeButton;
+	private JButton stopButton;
        
     /** Constructor. Creates the plotter panels. */
-    public OpCom() {
+    public OpCom(int plotterPriority) {
+    	priority = plotterPriority;
 		  measurementPlotter = new PlotterPanel(2, 4); // Two channels
 		  controlPlotter = new PlotterPanel(1, 4);
     }
@@ -123,6 +131,11 @@ public class OpCom {
     public void stopThread() {
 		  measurementPlotter.stopThread();
 		  controlPlotter.stopThread();
+    }
+    
+    public void setRegul(Regul r){
+    	regul =r;
+    	
     }
 
     /** Creates the GUI. Called from Main. */
@@ -165,8 +178,74 @@ public class OpCom {
 		  Dimension fd = frame.getSize();
 		  frame.setLocation((sd.width-fd.width)/2, (sd.height-fd.height)/2);
 	
-		  // Make the window visible.
-		  frame.setVisible(true);
+		  
+		  
+		  // Här börjar testet
+
+			// Create panel for the radio buttons.
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new FlowLayout());
+			buttonPanel.setBorder(BorderFactory.createEtchedBorder());
+			// Create the buttons.
+			offModeButton = new JRadioButton("OFF");
+			velModeButton = new JRadioButton("VEL");
+			posModeButton = new JRadioButton("POS");
+			stopButton = new JButton("STOP");
+			
+			// Group the radio buttons.
+			ButtonGroup group = new ButtonGroup();
+			group.add(offModeButton);
+			group.add(velModeButton);
+			group.add(posModeButton);
+			
+			// Button action listeners.
+			offModeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					regul.setOFFMode();
+				}
+			});
+			velModeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					regul.setVELMode();
+				}
+			});
+			posModeButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					regul.setPOSMode();
+				}
+			});
+			stopButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					regul.shutDown();
+					measurementPlotter.stopThread();
+					controlPlotter.stopThread();
+					System.exit(0);
+				}
+			});
+
+			// Add buttons to button panel.
+			buttonPanel.add(offModeButton, BorderLayout.NORTH);
+			buttonPanel.add(velModeButton, BorderLayout.CENTER);
+			buttonPanel.add(posModeButton, BorderLayout.SOUTH);
+
+	
+			plotterPanel.add(buttonPanel);
+			//plotterPanel.add(stopButton);	
+			
+			// Select initial mode.
+			mode = regul.getMode();
+			switch (mode) {
+			case 0:
+				offModeButton.setSelected(true);
+				break;
+			case 1:
+				velModeButton.setSelected(true);
+				break;
+			case 2:
+				posModeButton.setSelected(true);
+			}
+			 
+			frame.setVisible(true);
     }
 
     /** Called by Reader to put a control signal data point in the buffer. */

@@ -20,16 +20,13 @@ public class PI {
 	}
 
 	// Calculates the control signal v.
-	// Called from BeamRegul.
-	public synchronized double calculateOutput(double y) {
-		return p.Beta * p.K - p.K * y + I;
+	public synchronized double calculateOutput(double r, double y) {
+		return p.Beta * p.K * r - p.K * y + I;
 	}
 
 	// Updates the controller state.
-	// Should use tracking-based anti-windup
-	// Called from BeamRegul.
 	public synchronized void updateState(double r, double y) {
-		I = I + (p.K * p.h) / p.Ti * (r - y);
+		I = I + ((p.K * p.h )/ p.Ti) * (r - y);
 
 	}
 
