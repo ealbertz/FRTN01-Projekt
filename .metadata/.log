@@ -10,3 +10,12 @@ Command-line arguments:  -data /h/d6/o/ine11eal/Documents/FRTN01/FRTN01-Projekt 
 
 !ENTRY org.eclipse.debug.ui 4 0 2016-04-08 14:11:13.343
 !MESSAGE Tab group extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup for type org.eclipse.cdt.launch.applicationLaunchType for the [profile] mode has been replaced by extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup
+!SESSION 2016-04-11 09:34:52.180 -----------------------------------------------
+eclipse.buildId=4.5.2.v20160304-1300
+java.version=1.8.0_72
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.debug.ui 4 0 2016-04-11 09:38:50.961
+!MESSAGE Tab group extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup for type org.eclipse.cdt.launch.applicationLaunchType for the [profile] mode has been replaced by extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup

@@ -15,17 +15,16 @@ public class Regul extends Thread {
 
 	private PI velController = new PI("VelocityController");
 
-	private AnalogIn analogInVelocity;
-	private AnalogIn analogInPosition;
+	private AnalogIn velChan;
+	private AnalogIn posChan;
+	private AnalogIn ctrlChan;
 	private AnalogOut analogOut;
-
 	private OpCom opcom;
 
 	private int priority;
 	private boolean WeShouldRun = true;
 	private long starttime;
 	private Semaphore mutex; // used for synchronization at shut-down
-
 	private ModeMonitor modeMon;
 	private double uMin = -5.0;
 	private double uMax = 5.0;
@@ -33,7 +32,6 @@ public class Regul extends Thread {
 	// Inner monitor class
 	class ModeMonitor {
 		private int mode;
-
 		// Synchronized access methods
 		public synchronized void setMode(int newMode) {
 			mode = newMode;
@@ -49,14 +47,17 @@ public class Regul extends Thread {
 		priority = pri;
 		mutex = new Semaphore(1);
 		try {
-			analogInVelocity = new AnalogIn(0);
-			analogInPosition = new AnalogIn(1);
+			velChan = new AnalogIn(0);
+			posChan = new AnalogIn(1);
+			ctrlChan = new AnalogIn(2); //OBS Denna behövs inte sen.
 			analogOut = new AnalogOut(0);
 		} catch (IOChannelException e) {
+			System.out.println("Regul");
 			System.out.print("Error:setMode(int newMode) {IOChannelException: ");
 			System.out.println(e.getMessage());
 		}
 		modeMon = new ModeMonitor();
+		modeMon.setMode(OFF);
 	}
 
 	public void setOpCom(OpCom opcom) {
@@ -108,10 +109,14 @@ public class Regul extends Thread {
 	}
 
 	public void run() {
+		final long h = 25;
 		long duration;
 		long t = System.currentTimeMillis();
 		starttime = t;
-
+		double vel =0, pos=0, ctrl=0;
+		double realTime=0;
+		DoublePoint dp;
+		PlotData pd;
 		setPriority(priority);
 		mutex.take();
 		while (WeShouldRun) {
@@ -122,7 +127,28 @@ public class Regul extends Thread {
 				// Should include resetting the controllers
 				// Should include a call to sendDataToOpCom
 				velController.reset();
-				sendDataToOpCom(0.0, 0.0, 0.0);
+				try {
+					vel = velChan.get();
+					pos = posChan.get();
+					ctrl = ctrlChan.get();
+				} catch (Exception e) {
+					System.out.println(e);
+				} 
+				pd = new PlotData(realTime,pos,vel);
+				opcom.putMeasurementDataPoint(pd);
+
+				dp = new DoublePoint(realTime,ctrl);
+				opcom.putControlDataPoint(dp);
+
+				realTime += ((double) h)/1000.0;
+
+								t += h;
+								duration = (int) (t - System.currentTimeMillis());
+								if (duration > 0) {
+									 try {
+										  sleep(duration);
+									 } catch (Exception e) {}
+								}
 
 				break;
 			}
@@ -131,22 +157,36 @@ public class Regul extends Thread {
 				// Written by you.analogInVelocity.get()
 				// Should include a call to sendDataToOpCom
 
-				double yVelocity = 0;
+
 				double u = 0;
 				double yref = 0;
 
 				synchronized (velController) {
 
 					try {
-						yVelocity = analogInVelocity.get();
-						u = velController.calculateOutput(yVelocity);
+						vel = velChan.get();
+						pos = posChan.get();
+						ctrl = ctrlChan.get();
+						u = velController.calculateOutput(vel);
 						analogOut.set(limit(u, uMin, uMax));
 					} catch (IOException e) {
 						System.out.println(e.getStackTrace());
 					}
 
 				}
-				sendDataToOpCom(yref, yVelocity, u);
+				pd = new PlotData(realTime, pos, vel);				
+				opcom.putMeasurementDataPoint(pd);				
+				dp = new DoublePoint(realTime, ctrl);
+				opcom.putControlDataPoint(dp);
+				realTime += ((double) h)/1000.0;
+
+				t += h;
+				duration = (int) (t - System.currentTimeMillis());
+				if (duration > 0) {
+					try {
+						sleep(duration);
+					} catch (Exception e) {}
+				}
 
 				break;
 			}
@@ -187,19 +227,21 @@ public class Regul extends Thread {
 				// }
 				// }
 				//
-				// // sleep
-				// t = t + inner.getHMillis();
-				// duration = t - System.currentTimeMillis();
-				// if (duration > 0) {
-				// try {
-				// sleep(duration);
-				// } catch (InterruptedException x) {
-				// }
-				// }
+			
+			//sleep
+			t = t + h;
+			duration = t - System.currentTimeMillis();
+			if (duration > 0) {
+				try {
+					sleep(duration);
+				} catch (InterruptedException x) {
+				}
 			}
-				mutex.give();
 			}
-
+			mutex.give();
 		}
+
 	}
 }
+}
+

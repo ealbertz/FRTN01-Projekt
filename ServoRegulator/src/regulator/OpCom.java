@@ -11,7 +11,6 @@ import se.lth.control.realtime.*;
 
 
 
-
 class Reader extends Thread {
 
     private OpCom opcom;
@@ -42,6 +41,7 @@ class Reader extends Thread {
 				posChan = new AnalogIn(1);
 				ctrlChan = new AnalogIn(2);
 		  } catch (Exception e) {
+			  System.out.println("Reader.start()");
 				System.out.println(e);
 		  } 
 
@@ -56,7 +56,7 @@ class Reader extends Thread {
 					 System.out.println(e);
 				} 
 
-				pd = new PlotData(realTime, pos, vel);
+				pd = new PlotData(realTime,pos,vel);
 				opcom.putMeasurementDataPoint(pd);
 	    
 				dp = new DoublePoint(realTime,ctrl);
@@ -79,7 +79,7 @@ class Reader extends Thread {
 		  doIt = false;
     }
 
-    /** Called by Opcom when the Stop button is pressed. */
+    /** Called by Opcom when the Stop button is pressed. */ 
     public synchronized void shutDown() {
 		  stopThread();
     } 
@@ -183,6 +183,5 @@ public class OpCom {
 		  double y = pd.y;
 		  measurementPlotter.putData(x, ref, y);
     }    
-
-
+    
 }
