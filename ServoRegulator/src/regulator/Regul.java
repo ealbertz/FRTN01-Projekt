@@ -13,6 +13,7 @@ public class Regul extends Thread {
 	public static final int VEL = 1;
 	public static final int POS = 2;
 
+
 	private PI velController = new PI("VelocityController");
 	private ControllerWithObserver posController = new ControllerWithObserver();
 
@@ -23,11 +24,12 @@ public class Regul extends Thread {
 
 	private int priority;
 	private boolean WeShouldRun = true;
-	private long starttime;
+	//private long starttime;
 	private Semaphore mutex; // used for synchronization at shut-down
 	private ModeMonitor modeMon;
 	private double uMin = -10;
 	private double uMax = 10;
+	
 
 	// Inner monitor class
 	class ModeMonitor {
@@ -68,16 +70,26 @@ public class Regul extends Thread {
 	}
 
 	public void setVELMode() {
+		velController.reset();
+		posController.reset();
 		modeMon.setMode(VEL);
 	}
 
 	public void setPOSMode() {
+		velController.reset();
+		posController.reset();
 		modeMon.setMode(POS);
 	}
 
 	public int getMode() {
 		return modeMon.getMode();
 	}
+
+//	public void changeDirection () {
+//		velRef = - velRef;
+//	}
+	
+
 
 	// Called from OpCom when shutting down
 	public synchronized void shutDown() {
@@ -102,7 +114,7 @@ public class Regul extends Thread {
 		final long h = 50;
 		long duration;
 		long t = System.currentTimeMillis();
-		starttime = t;
+		//starttime = t;
 		double vel =0, pos=0, ctrl=0;
 		double realTime=0;
 		DoublePoint dp;
@@ -113,8 +125,8 @@ public class Regul extends Thread {
 			switch (modeMon.getMode()) {
 			case OFF: {
 				// Should include resetting the controllers
-				// Should include a call to sendDataToOpCom
 				velController.reset();
+				posController.reset();
 				try {
 					vel = velChan.get();
 					pos = posChan.get();
@@ -143,7 +155,7 @@ public class Regul extends Thread {
 			case VEL: {
 				double u = 0;
 				double v = 0;
-				double r = 5;
+				double r = -5;
 
 				synchronized (velController) {
 
@@ -169,9 +181,11 @@ public class Regul extends Thread {
 				t += h;
 				duration = (int) (t - System.currentTimeMillis());
 				if (duration > 0) {
-					try {
-						sleep(duration);
+				try {						
+					sleep(duration);
 					} catch (Exception e) {}
+				}else{
+					System.out.println("No sleep");
 				}
 
 				break;
@@ -197,10 +211,9 @@ public class Regul extends Thread {
 
 				}
 				posController.updateState(r, pos);
-				//System.out.println(v);
-				pd = new PlotData(realTime, pos, vel);				
-				opcom.putMeasurementDataPoint(pd);				
+				pd = new PlotData(realTime, pos, vel);
 				dp = new DoublePoint(realTime,u);
+				opcom.putMeasurementDataPoint(pd);				
 				opcom.putControlDataPoint(dp);
 
 				realTime += ((double) h)/1000.0;
@@ -209,7 +222,8 @@ public class Regul extends Thread {
 				if (duration > 0) {
 					try {
 						sleep(duration);
-					} catch (InterruptedException x) {
+					}
+					catch (InterruptedException x) {
 					}
 				}
 			}

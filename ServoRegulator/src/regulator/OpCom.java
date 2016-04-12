@@ -1,13 +1,11 @@
 package regulator;
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import se.lth.control.*;
 import se.lth.control.plot.*;
-import java.util.*;
-import se.lth.control.realtime.*;
+
+
 
 
 
@@ -107,18 +105,19 @@ public class OpCom {
     private int divTicks = 5;    // Number of ticks on time axis
     private int divGrid = 5;     // Number of grids on time axis
 
-    private boolean hChanged = false; 
+    //private boolean hChanged = false; 
     
     private JRadioButton offModeButton;
 	private JRadioButton velModeButton;
 	private JRadioButton posModeButton;
 	private JButton stopButton;
+	
        
     /** Constructor. Creates the plotter panels. */
     public OpCom(int plotterPriority) {
     	priority = plotterPriority;
-		  measurementPlotter = new PlotterPanel(2, 4); // Two channels
-		  controlPlotter = new PlotterPanel(1, 4);
+		  measurementPlotter = new PlotterPanel(2, priority); // Two channels
+		  controlPlotter = new PlotterPanel(1, priority);
     }
 
     /** Starts the threads. */
@@ -177,10 +176,6 @@ public class OpCom {
 		  Dimension sd = Toolkit.getDefaultToolkit().getScreenSize();
 		  Dimension fd = frame.getSize();
 		  frame.setLocation((sd.width-fd.width)/2, (sd.height-fd.height)/2);
-	
-		  
-		  
-		  // Här börjar testet
 
 			// Create panel for the radio buttons.
 			JPanel buttonPanel = new JPanel();
@@ -193,10 +188,10 @@ public class OpCom {
 			stopButton = new JButton("STOP");
 			
 			// Group the radio buttons.
-			ButtonGroup group = new ButtonGroup();
-			group.add(offModeButton);
-			group.add(velModeButton);
-			group.add(posModeButton);
+			ButtonGroup regGroup = new ButtonGroup();
+			regGroup.add(offModeButton);
+			regGroup.add(velModeButton);
+			regGroup.add(posModeButton);
 			
 			// Button action listeners.
 			offModeButton.addActionListener(new ActionListener() {
@@ -244,6 +239,30 @@ public class OpCom {
 			case 2:
 				posModeButton.setSelected(true);
 			}
+			
+//			JPanel velPanel = new JPanel();
+//			clockWButton = new JRadioButton("left");
+//			counterclockWButton = new JRadioButton("right");
+//			velPanel.add(clockWButton);
+//			velPanel.add(counterclockWButton);
+//			plotterPanel.add(velPanel);
+//			
+//			ButtonGroup velGroup = new ButtonGroup();
+//			velGroup.add(clockWButton);
+//			velGroup.add(counterclockWButton);
+//			
+//			clockWButton.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					regul.changeDirection();
+//				}
+//			});
+//			
+//			counterclockWButton.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					regul.changeDirection();
+//				}
+//			});
+			
 			 
 			frame.setVisible(true);
     }

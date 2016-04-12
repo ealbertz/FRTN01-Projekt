@@ -2,21 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="controlPlotter" key="selection"/>
+		<item value="priority" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="controlplotter"/>
-			<item value="putcontroldatap"/>
-			<item value="opCom"/>
-			<item value="PlotData1"/>
-			<item value="sendDataToOpcom"/>
-			<item value="setRegul"/>
-			<item value="Reader"/>
+			<item value="priority"/>
+			<item value="regulpriority"/>
+			<item value="regulprio"/>
+			<item value="offmodebutton"/>
+			<item value="h"/>
+			<item value="plotterprior"/>
+			<item value="updatestate"/>
+			<item value="u"/>
 		</list>
 		<list key="replacehistory">
+			<item value="cp."/>
 			<item value="PlotData"/>
 		</list>
 	</section>
@@ -24,7 +26,7 @@
 		<item value="327" key="DIALOG_WIDTH"/>
 		<item value="1|Cantarell|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 		<item value="453" key="DIALOG_HEIGHT"/>
-		<item value="765" key="DIALOG_X_ORIGIN"/>
-		<item value="433" key="DIALOG_Y_ORIGIN"/>
+		<item value="676" key="DIALOG_X_ORIGIN"/>
+		<item value="196" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

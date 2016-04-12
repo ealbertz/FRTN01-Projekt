@@ -1,0 +1,25 @@
+package regulator;
+
+public class ControlParameters implements Cloneable{
+	double phi11 = 0.994;
+	double phi12 = 0;
+	double phi21 = 0.2493;
+	double phi22 = 1;
+	double gamma1 = 0.1122;
+	double gamma2 = 0.01403;
+	double l1 = 3.2898;
+	double l2 = 1.7831;
+	double lr = 1.7831;
+	double k1 = 2.0361;
+	double k2 = 1.2440;
+	double kv = 3.2096;
+
+	
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException x) {
+			return null;
+		}
+	}
+}
