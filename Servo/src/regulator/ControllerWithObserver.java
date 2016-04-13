@@ -57,6 +57,7 @@ public class ControllerWithObserver {
 
 	// For example needed when changing controller mode.
 	public synchronized void reset() {
+		eps = 0;
 		x1 = 0;
 		x2 = 0;
 		v = 0;

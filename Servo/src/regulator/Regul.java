@@ -107,6 +107,15 @@ public class Regul extends Thread {
 		}
 		return v;
 	}
+	
+	public void resetVelController(){
+		velController.reset();
+	}
+	
+	public void resetPosController(){
+		posController.reset();
+	}
+	
 
 	public void run() {
 		final long h = 50;
@@ -124,7 +133,6 @@ public class Regul extends Thread {
 			case OFF: {
 				// Should include resetting the controllers
 				// Should include a call to sendDataToOpCom
-				velController.reset();
 				try {
 					vel = velChan.get();
 					pos = posChan.get();
@@ -154,6 +162,7 @@ public class Regul extends Thread {
 				double u = 0;
 				double v = 0;
 				double r = 5;
+				
 
 				synchronized (velController) {
 
@@ -193,6 +202,7 @@ public class Regul extends Thread {
 				double u = 0;
 				double v = 0;
 				double r = 5;
+				
 
 				synchronized (posController) {
 
