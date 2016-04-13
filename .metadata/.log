@@ -1169,18 +1169,30 @@ org.tigris.subversion.subclipse.core.SVNException: Provided SVN information does
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
 !SUBENTRY 1 org.tigris.subversion.subclipse.core 4 4 2016-04-12 11:15:35.460
 !MESSAGE Provided SVN information does not match that on disk for project 'Server-Client'.
+<<<<<<< HEAD
 !SESSION 2016-04-12 13:16:33.207 -----------------------------------------------
+=======
+!SESSION 2016-04-13 11:41:39.864 -----------------------------------------------
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 eclipse.buildId=4.5.2.v20160304-1300
 java.version=1.8.0_77
 java.vendor=Oracle Corporation
 BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
 Command-line arguments:  -os linux -ws gtk -arch x86_64
 
+<<<<<<< HEAD
 !ENTRY com.collabnet.subversion.merge 4 0 2016-04-12 13:16:35.349
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: com.collabnet.subversion.merge [199]
   Unresolved requirement: Require-Bundle: org.tigris.subversion.subclipse.ui; bundle-version="1.10.0"
+=======
+!ENTRY org.eclipse.cdt.mylyn.ui 4 0 2016-04-13 11:41:42.772
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.cdt.mylyn.ui [279]
+  Unresolved requirement: Require-Bundle: org.eclipse.cdt.core; bundle-version="5.0.0"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1191,11 +1203,25 @@ org.osgi.framework.BundleException: Could not resolve module: com.collabnet.subv
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.rse.terminals.ui 4 0 2016-04-12 13:16:35.363
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: org.eclipse.rse.terminals.ui [674]
   Unresolved requirement: Require-Bundle: org.eclipse.tm.terminal.control; bundle-version="4.0.0"
+=======
+!ENTRY org.eclipse.datatools.enablement.ibm 4 0 2016-04-13 11:41:42.775
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.enablement.ibm [318]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[1.0.0,2.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+       org.eclipse.datatools.sqltools.parsers.sql [392]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1206,11 +1232,28 @@ org.osgi.framework.BundleException: Could not resolve module: org.eclipse.rse.te
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.fedoraproject.eclipse.packager 4 0 2016-04-12 13:16:39.100
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager [695]
   Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+=======
+!ENTRY org.eclipse.datatools.enablement.ibm.db2 4 0 2016-04-13 11:41:42.777
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.enablement.ibm.db2 [319]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.enablement.ibm; bundle-version="[1.0.0,2.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.enablement.ibm; bundle-version="1.0.0.v201406061400"; singleton:="true"
+       org.eclipse.datatools.enablement.ibm [318]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[1.0.0,2.0.0)"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql [392]
+                Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+                  -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+                     org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                       Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1221,6 +1264,7 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.fedoraproject.eclipse.packager.bodhi 4 0 2016-04-12 13:16:39.104
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
@@ -1229,6 +1273,22 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
     -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
        org.fedoraproject.eclipse.packager [695]
          Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+=======
+!ENTRY org.eclipse.datatools.enablement.ibm.db2.luw 4 0 2016-04-13 11:41:42.779
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.enablement.ibm.db2.luw [323]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.enablement.ibm; bundle-version="[1.0.0,2.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.enablement.ibm; bundle-version="1.0.0.v201406061400"; singleton:="true"
+       org.eclipse.datatools.enablement.ibm [318]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[1.0.0,2.0.0)"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql [392]
+                Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+                  -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+                     org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                       Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1239,6 +1299,7 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.fedoraproject.eclipse.packager.git 4 0 2016-04-12 13:16:39.108
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
@@ -1247,6 +1308,25 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
     -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
        org.fedoraproject.eclipse.packager [695]
          Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+=======
+!ENTRY org.eclipse.datatools.enablement.ibm.db2.luw.ui 4 0 2016-04-13 11:41:42.781
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.enablement.ibm.db2.luw.ui [325]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.enablement.ibm.db2.luw; bundle-version="[1.0.0,2.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.enablement.ibm.db2.luw; bundle-version="1.0.3.v201406061400"; singleton:="true"
+       org.eclipse.datatools.enablement.ibm.db2.luw [323]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.enablement.ibm; bundle-version="[1.0.0,2.0.0)"
+           -> Bundle-SymbolicName: org.eclipse.datatools.enablement.ibm; bundle-version="1.0.0.v201406061400"; singleton:="true"
+              org.eclipse.datatools.enablement.ibm [318]
+                Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[1.0.0,2.0.0)"
+                  -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+                     org.eclipse.datatools.sqltools.parsers.sql [392]
+                       Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+                         -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+                            org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                              Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1257,6 +1337,7 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.fedoraproject.eclipse.packager.koji 4 0 2016-04-12 13:16:39.108
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
@@ -1265,6 +1346,16 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
     -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
        org.fedoraproject.eclipse.packager [695]
          Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+=======
+!ENTRY org.eclipse.datatools.sqltools.parsers.sql 4 0 2016-04-13 11:41:42.784
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.sqltools.parsers.sql [392]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+       org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+         Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1275,11 +1366,19 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.fedoraproject.eclipse.packager.rpm 4 0 2016-04-12 13:16:39.109
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager.rpm [701]
   Unresolved requirement: Import-Package: org.eclipse.linuxtools.tools.launch.core.factory
+=======
+!ENTRY org.eclipse.datatools.sqltools.parsers.sql.lexer 4 0 2016-04-13 11:41:42.786
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+  Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1290,11 +1389,25 @@ org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.tigris.subversion.subclipse.graph 4 0 2016-04-12 13:16:39.110
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: org.tigris.subversion.subclipse.graph [728]
   Unresolved requirement: Require-Bundle: org.tigris.subversion.subclipse.ui; bundle-version="1.4.6"
+=======
+!ENTRY org.eclipse.datatools.sqltools.parsers.sql.query 4 0 2016-04-13 11:41:42.788
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.sqltools.parsers.sql.query [394]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[0.9.0,1.5.0)"; visibility:="reexport"
+    -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+       org.eclipse.datatools.sqltools.parsers.sql [392]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1305,11 +1418,28 @@ org.osgi.framework.BundleException: Could not resolve module: org.tigris.subvers
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.tigris.subversion.subclipse.tools.usage 4 0 2016-04-12 13:16:39.115
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
 org.osgi.framework.BundleException: Could not resolve module: org.tigris.subversion.subclipse.tools.usage [729]
   Unresolved requirement: Require-Bundle: org.tigris.subversion.subclipse.ui
+=======
+!ENTRY org.eclipse.datatools.sqltools.parsers.sql.xml.query 4 0 2016-04-13 11:41:42.790
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.sqltools.parsers.sql.xml.query [395]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.query; bundle-version="[0.9.0,1.5.0)"; visibility:="reexport"
+    -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.query; bundle-version="1.2.1.v201406061400"; singleton:="true"
+       org.eclipse.datatools.sqltools.parsers.sql.query [394]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[0.9.0,1.5.0)"; visibility:="reexport"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql [392]
+                Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+                  -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+                     org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                       Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86
 
 	at org.eclipse.osgi.container.Module.start(Module.java:434)
 	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
@@ -1320,6 +1450,7 @@ org.osgi.framework.BundleException: Could not resolve module: org.tigris.subvers
 	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
 	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-12 13:16:39.342
 !MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/subclipse.
 
@@ -1789,3 +1920,241 @@ org.tigris.subversion.subclipse.core.SVNException: Provided SVN information does
 
 !ENTRY org.eclipse.jdt.core 4 0 2016-04-12 14:47:29.100
 !MESSAGE Invalid ZIP archive: /home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/commons-io-2.4-bin.tar.gz
+=======
+!ENTRY org.eclipse.datatools.sqltools.sqlbuilder 4 0 2016-04-13 11:41:42.792
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.datatools.sqltools.sqlbuilder [406]
+  Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.query; bundle-version="[1.0.0,2.0.0)"
+    -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.query; bundle-version="1.2.1.v201406061400"; singleton:="true"
+       org.eclipse.datatools.sqltools.parsers.sql.query [394]
+         Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="[0.9.0,1.5.0)"; visibility:="reexport"
+           -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql; bundle-version="1.0.2.v201406061400"; singleton:="true"
+              org.eclipse.datatools.sqltools.parsers.sql [392]
+                Unresolved requirement: Require-Bundle: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="[0.9.0,1.5.0)"
+                  -> Bundle-SymbolicName: org.eclipse.datatools.sqltools.parsers.sql.lexer; bundle-version="1.0.1.v201406061400"; singleton:="true"
+                     org.eclipse.datatools.sqltools.parsers.sql.lexer [393]
+                       Unresolved requirement: Require-Bundle: net.sourceforge.lpg.lpgjavaruntime; bundle-version="[1.1.0,2.0.0)"; visibility:="reexport"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.fedoraproject.eclipse.packager 4 0 2016-04-13 11:41:43.511
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager [773]
+  Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.fedoraproject.eclipse.packager.bodhi 4 0 2016-04-13 11:41:43.514
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager.bodhi [774]
+  Unresolved requirement: Import-Package: org.fedoraproject.eclipse.packager
+    -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
+       org.fedoraproject.eclipse.packager [773]
+         Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.fedoraproject.eclipse.packager.git 4 0 2016-04-13 11:41:43.516
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager.git [776]
+  Unresolved requirement: Import-Package: org.fedoraproject.eclipse.packager
+    -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
+       org.fedoraproject.eclipse.packager [773]
+         Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.fedoraproject.eclipse.packager.koji 4 0 2016-04-13 11:41:43.519
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager.koji [777]
+  Unresolved requirement: Import-Package: org.fedoraproject.eclipse.packager
+    -> Export-Package: org.fedoraproject.eclipse.packager; bundle-symbolic-name="org.fedoraproject.eclipse.packager"; bundle-version="0.5.0"; version="0.0.0"
+       org.fedoraproject.eclipse.packager [773]
+         Unresolved requirement: Require-Bundle: org.eclipse.linuxtools.rpm.core; bundle-version="2.0.0"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.fedoraproject.eclipse.packager.rpm 4 0 2016-04-13 11:41:43.521
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.fedoraproject.eclipse.packager.rpm [779]
+  Unresolved requirement: Import-Package: org.eclipse.linuxtools.tools.launch.core.factory
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:43.646
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/rse.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:43.829
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/eclipse-p2-discovery.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:43.870
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-tasks-bugzilla.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:43.914
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/dtp-connectivity.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:43.966
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mpc.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.048
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/subclipse.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.086
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/e4-importer.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.114
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/jgit.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.183
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/collabnet-merge.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.214
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/remote.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.271
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/dtp-sqldevtools.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.332
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/dtp-doc.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.357
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-context-java.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.386
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-tasks-trac.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.417
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/dtp-modelbase.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.445
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-libhover.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:44.528
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-core.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.011
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/swt-chart.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.039
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/cdt-parsers.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.087
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-rpm-editor.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.349
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-changelog.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.413
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/fedorapackager.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.429
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/fedorapackager/eclipse/plugins/org.eclipse.jgit_3.5.0.201409260305-r.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.442
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/fedorapackager/eclipse/plugins/org.eclipse.jgit_3.5.0.201409260305-r.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.485
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-context-cdt.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.510
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/gef-core.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.539
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/emf-runtime.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.598
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-docs.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.646
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-valgrind.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.705
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/packagekit.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.730
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/dtp-enablement.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.806
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-tasks-web.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.834
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/egit-egit.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:45.867
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/ptp.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.002
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/mylyn-commons.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.068
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/linuxtools-oprofile.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.128
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/share/eclipse/dropins/tm-terminal.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.219
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/lib64/eclipse/dropins/pydev-core.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.258
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/lib64/eclipse/dropins/cvs.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.284
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/lib64/eclipse/dropins/sdk.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.395
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/lib64/eclipse/dropins/jdt.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2016-04-13 11:41:46.430
+!MESSAGE Unable to acquire PluginConverter service during generation for: /usr/lib64/eclipse/dropins/cdt.
+
+!ENTRY org.eclipse.debug.ui 4 0 2016-04-13 11:44:24.886
+!MESSAGE Tab group extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup for type org.eclipse.cdt.launch.applicationLaunchType for the [profile] mode has been replaced by extension: org.eclipse.cdt.launch.applicationProfileLaunchTabGroup
+>>>>>>> 7de655cb4821089b84803d83b81e239e89e13f86

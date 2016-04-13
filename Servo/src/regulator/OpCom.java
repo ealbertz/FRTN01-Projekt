@@ -79,12 +79,12 @@ public class OpCom {
 		// Create a panel for the two plotters.
 		plotterPanel = new BoxPanel(BoxPanel.VERTICAL);
 		// Create plot components and axes, add to plotterPanel.
-		measurementPlotter.setYAxis(20, -10, 4, 4);
+		measurementPlotter.setYAxis(40, -20, 4, 4);
 		measurementPlotter.setXAxis(range, divTicks, divGrid);
 		measurementPlotter.setTitle("Position and velocity (V)");
 		plotterPanel.add(measurementPlotter);
 		plotterPanel.addFixed(10);
-		controlPlotter.setYAxis(20, -10, 4, 4);
+		controlPlotter.setYAxis(40, -20, 4, 4);
 		controlPlotter.setXAxis(range, divTicks, divGrid);
 		controlPlotter.setTitle("Control (V)");
 		plotterPanel.add(controlPlotter);
@@ -137,16 +137,20 @@ public class OpCom {
 		// Button action listeners.
 		offModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				regul.resetVelController();
+				regul.resetPosController();
 				regul.setOFFMode();
 			}
 		});
 		velModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				regul.resetVelController();
 				regul.setVELMode();
 			}
 		});
 		posModeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				regul.resetPosController();
 				regul.setPOSMode();
 			}
 		});
