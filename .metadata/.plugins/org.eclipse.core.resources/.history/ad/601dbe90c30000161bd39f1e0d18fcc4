@@ -1,0 +1,16 @@
+package regulatorServer;
+
+import communication.ProcessInput;
+
+public class Controller {
+	
+	VelRegulator velRegul = new VelRegulator();
+	
+	public Double calculateOutput(ProcessInput input)
+	{
+		// insert switch på  Mode setting (OFF, VEL, POS)
+		
+		return new Double(velRegul.calculateOutput(0, input.getVel()));
+	}
+
+}

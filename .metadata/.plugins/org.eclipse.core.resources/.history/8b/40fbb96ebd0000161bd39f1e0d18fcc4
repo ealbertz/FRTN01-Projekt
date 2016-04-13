@@ -1,0 +1,12 @@
+package regulatorServer;
+
+import communication.ProcessInput;
+
+public class Controller {
+	
+	public double calcuclateOutput(ProcessInput input)
+	{
+		return 0;
+	}
+
+}
