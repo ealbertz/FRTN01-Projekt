@@ -7,24 +7,28 @@ import java.net.InetAddress;
 import communication.DoubleToByteArray;
 import communication.ProcessInput;
 import se.lth.control.realtime.AnalogIn;
+import se.lth.control.realtime.AnalogOut;
 import se.lth.control.realtime.IOChannelException;
 import se.lth.control.realtime.Semaphore;
 
 public class SendDataFromProcess extends Thread {
-	
+
 	private boolean WeShouldRun = true;
 
 	private AnalogIn velChan;
-	private AnalogIn posChan;	
-	
+	private AnalogIn posChan;
+	private AnalogOut ctrlChan;
 
-	// private Semaphore mutex;
+	private Semaphore mutex;
+	private int priority;
 
-	public SendDataFromProcess() {
-		// mutex = new Semaphore(1); Vet ej om denna behövs..
+	public SendDataFromProcess(int prio) {
+		priority = prio;
+		mutex = new Semaphore(1);
 		try {
 			velChan = new AnalogIn(0);
 			posChan = new AnalogIn(1);
+			ctrlChan = new AnalogOut(0);
 
 		} catch (IOChannelException e) {
 			System.out.println("SendDataFromProcess");
@@ -33,24 +37,36 @@ public class SendDataFromProcess extends Thread {
 		}
 
 	}
+
 	public void run() {
-		final long h = 50; 
+		final long h = 50;
 		long duration;
 		long t = System.currentTimeMillis();
 		double vel = 0, pos = 0;
 		double realTime = 0;
-		//mutex.take()
-		while(WeShouldRun) {
-			try{
-				vel = velChan.get();
-				pos = posChan.get();
-			}catch (Exception e) {
-				System.out.println(e);
-			} 
-			ProcessInput input = new ProcessInput(/*realTime,*/ vel, pos);
-			sendProcessOutput(input);
+		setPriority(priority);
+		mutex.take();
+		while (WeShouldRun) {
+			double u = 0;
+			synchronized (this) {
+				try {
+					vel = velChan.get();
+					pos = posChan.get();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				ProcessInput input = new ProcessInput(/* realTime, */ vel, pos);
+				try {
+					u = sendProcessOutput(input);
+					// System.out.println("U som returneras från servern: " +
+					// u);
+					ctrlChan.set(u);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		realTime += ((double) h)/1000.0;
+		realTime += ((double) h) / 1000.0;
 
 		t += h;
 		duration = t - System.currentTimeMillis();
@@ -58,30 +74,48 @@ public class SendDataFromProcess extends Thread {
 			try {
 				sleep(duration);
 			} catch (InterruptedException e) {
-				
+
 			}
+		}else{
+			System.out.println("No sleep");
 		}
-		//mutex.give();
+		mutex.give();
 	}
 
-	//Lägg till medtod sendProcessOnput
-	
-	
-	public static void main(String[] args) throws Exception {
+	public synchronized void shutDown() {
+		WeShouldRun = false;
+		mutex.take();
+		try {
+			ctrlChan.set(0.0);
+		} catch (IOChannelException x) {
+		}
+	}
+
+	// Lägg till medtod sendProcessOnput
+
+	public double sendProcessOutput(ProcessInput input) throws Exception {
 
 		DatagramSocket clientSocket = new DatagramSocket();
 		InetAddress IPAddress = InetAddress.getByName("localhost");
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
-		ProcessInput input = new ProcessInput(1,2);
 		sendData = input.getBytes();
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9805);
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9807);
 		clientSocket.send(sendPacket);
+		System.out.println("Vel: " + input.getVel());
+		System.out.println("Pos: " + input.getPos());
 		DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 		clientSocket.receive(receivePacket);
 		Double reply = DoubleToByteArray.toDouble(receivePacket.getData());
 		System.out.println("Reply signal: " + reply);
 		clientSocket.close();
+
+		return reply;
 	}
 
+	public static void main(String[] args) throws Exception {
+		System.in.read();
+		new SendDataFromProcess(10).start();
+
+	}
 }

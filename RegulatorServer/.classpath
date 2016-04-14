@@ -2,8 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/commons-io-2.4/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/commons-lang3-3.4/commons-lang3-3.4.jar"/>
 	<classpathentry kind="lib" path="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/regler.jar"/>
+=======
+	<classpathentry kind="lib" path="/h/d6/o/ine11eal/Documents/FRTN01/commons-lang3-3.4/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="/h/d6/o/ine11eal/Documents/FRTN01/regler.jar"/>
+>>>>>>> b1d7cbc3d411a9cff6ffa4d6e8eee9619fe717dc
 	<classpathentry kind="output" path="bin"/>
 </classpath>
