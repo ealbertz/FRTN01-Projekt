@@ -8,6 +8,9 @@ public class VelRegulator {
 	private PIParameters p;
 
 	private double I;
+	
+	// räknare för att debugga
+	private int counter=0;
 
 	// Constructor
 	public VelRegulator() {
@@ -23,11 +26,20 @@ public class VelRegulator {
 
 	// Calculates the control signal v.
 	public synchronized double calculateOutput(double r, double y) {
+		
+//		if (counter <100 ){
+//			System.out.println("y in CalculateOutput: "+y);
+//		}
+		
 		return p.Beta * p.K * r - p.K * y + I;
 	}
 
 	// Updates the controller state.
 	public synchronized void updateState(double r, double y) {
+//		if(counter <100){
+//			System.out.println("In Update State: old I: "+ I + " r: " +r + " y: "+y);
+//			counter++;
+//		}
 		I = I + ((p.K * p.h )/ p.Ti) * (r - y);
 
 	}

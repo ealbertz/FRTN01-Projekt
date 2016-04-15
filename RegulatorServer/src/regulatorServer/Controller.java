@@ -1,13 +1,15 @@
 package regulatorServer;
 
 import communication.ProcessInput;
+import communication.RegulParameters;
 
 public class Controller {
 
 	public static final int OFF = 0, VEL = 1, POS = 2;
 
 	private int mode = OFF;
-	private double ref=5;
+	private double velRef=0;
+	private double posRef=0;
 	private double u=0;
 	private final double uMax= 10.0;
 	private final double uMin= -10.0;
@@ -22,6 +24,22 @@ public class Controller {
 		velRegul.reset();
 		posRegul.reset();
 	}
+	
+	public void setRegulParameters(RegulParameters p){
+		
+		setMode(p.getMode());
+		velRef=0.1*p.getVelRef();
+		posRef=0.1*p.getPosRef();
+		
+		if(p.getDirection()){
+			velRef=Math.abs(velRef);
+			posRef= Math.abs(posRef);
+		}else{
+			velRef=-Math.abs(velRef);
+			posRef=-Math.abs(posRef);
+		}
+		
+	}
 
 	public Double calculateOutput(ProcessInput input) {
 		
@@ -32,13 +50,13 @@ public class Controller {
 			u=new Double(0);
 			return u;
 		case VEL: 
-			u=new Double(velRegul.calculateOutput(ref, input.getVel()));
+			u=new Double(velRegul.calculateOutput(velRef, input.getVel()));
 			
 			//System.out.println("ref: "+ref +" vel: " + input.getVel()+" u: " + u + "limit u: "+ limit(u,uMin,uMax)  );
 			
 			return limit(u,uMin,uMax);
 		case POS: 
-			u = new Double(posRegul.calculateOutput(ref, input.getPos()));
+			u = new Double(posRegul.calculateOutput(posRef, input.getPos()));
 			return limit(u,uMin,uMax);
 			
 		}
@@ -55,10 +73,10 @@ public class Controller {
 		case OFF:
 			return;
 		case VEL: 
-			velRegul.updateState(ref, input.getVel());
+			velRegul.updateState(velRef, input.getVel());
 			return;
 		case POS: 
-			posRegul.updateState(u, input.getPos());
+			posRegul.updateState(input.getPos());
 			return;
 			
 		}
@@ -71,6 +89,22 @@ public class Controller {
 			v = max;
 		}
 		return v;
+	}
+	
+	public double getRealTime(){
+		return input.getRealTime();
+	}
+	
+	public double getPos(){
+		return input.getPos();
+	}
+	
+	public double getVel(){
+		return input.getVel();
+	}
+	
+	public double getCtrl(){
+		return limit(u,uMin,uMax);
 	}
 
 }

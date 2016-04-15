@@ -55,7 +55,7 @@ public class SendDataFromProcess extends Thread {
 				} catch (Exception e) {
 					System.out.println(e);
 				}
-				ProcessInput input = new ProcessInput(/* realTime, */ vel, pos);
+				ProcessInput input = new ProcessInput(realTime, vel, pos);
 				try {
 					u = sendProcessOutput(input);
 					// System.out.println("U som returneras från servern: " +
@@ -65,21 +65,25 @@ public class SendDataFromProcess extends Thread {
 					e.printStackTrace();
 				}
 			}
-		}
-		realTime += ((double) h) / 1000.0;
 
-		t += h;
-		duration = t - System.currentTimeMillis();
-		if (duration > 0) {
-			try {
-				sleep(duration);
-			} catch (InterruptedException e) {
+			realTime += ((double) h) / 1000.0;
 
+			t += h;
+			duration = t - System.currentTimeMillis();
+			if (duration > 0) {
+				try {
+					sleep(duration);
+				} catch (InterruptedException e) {
+
+				}
+			} else {
+				System.out.println("No sleep");
 			}
-		}else{
-			System.out.println("No sleep");
+			//System.out.println(duration);
 		}
+		
 		mutex.give();
+
 	}
 
 	public synchronized void shutDown() {
@@ -95,26 +99,30 @@ public class SendDataFromProcess extends Thread {
 
 	public double sendProcessOutput(ProcessInput input) throws Exception {
 
+		// debugging
+		int counter = 0;
+
 		DatagramSocket clientSocket = new DatagramSocket();
 		InetAddress IPAddress = InetAddress.getByName("localhost");
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
 		sendData = input.getBytes();
-		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9807);
+		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9811);
 		clientSocket.send(sendPacket);
-		System.out.println("Vel: " + input.getVel());
-		System.out.println("Pos: " + input.getPos());
+
+		//System.out.println("Vel: " + input.getVel());
+		//System.out.println("Pos: " + input.getPos());
+
 		DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 		clientSocket.receive(receivePacket);
 		Double reply = DoubleToByteArray.toDouble(receivePacket.getData());
-		System.out.println("Reply signal: " + reply);
+		// System.out.println("Reply signal: " + reply);
 		clientSocket.close();
 
 		return reply;
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.in.read();
 		new SendDataFromProcess(10).start();
 
 	}

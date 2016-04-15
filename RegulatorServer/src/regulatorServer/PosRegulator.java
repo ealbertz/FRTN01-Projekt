@@ -43,7 +43,7 @@ public class PosRegulator {
 	}
 
 	// Updates the controller state.
-	public synchronized void updateState(double u, double y) {
+	public synchronized void updateState(double y) {
 		eps=y-x2;
 		x1 = cp.phi11*x1+cp.phi12*x2+cp.gamma1*(u+v)+cp.k1*eps;
 		x2 = cp.phi21*x1+cp.phi22*x2+cp.gamma2*(u+v)+cp.k2*eps;

@@ -12,20 +12,17 @@ public class ProcessInput implements Serializable {
 
 	private double vel;
 	private double pos;
+	private double realTime;
 
-	public ProcessInput(double vel, double pos) {
-
+	public ProcessInput(double realTime, double vel, double pos) {
+		
+		this.realTime=realTime;
 		this.vel = vel;
 		this.pos = pos;
 
 	}
 
-//	public ProcessInput(byte[] inputBytes) {
-//		ProcessInput p = (ProcessInput)SerializationUtils.deserialize(inputBytes);
-//		vel=p.getVel();
-//		pos=p.getPos();
-//
-//	}
+
 
 	public double getVel() {
 		return vel;
@@ -33,6 +30,10 @@ public class ProcessInput implements Serializable {
 
 	public double getPos() {
 		return pos;
+	}
+	
+	public double getRealTime(){
+		return realTime;
 	}
 
 	public byte[] getBytes() {

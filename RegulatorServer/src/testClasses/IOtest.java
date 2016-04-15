@@ -18,7 +18,7 @@ public class IOtest {
 		InetAddress IPAddress = InetAddress.getByName("localhost");
 		byte[] sendData = new byte[1024];
 		byte[] receiveData = new byte[1024];
-		ProcessInput input= new ProcessInput(1,2);
+		ProcessInput input= new ProcessInput(1,1,2);
 		sendData = input.getBytes();
 		DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9805);
 		clientSocket.send(sendPacket);
