@@ -1,7 +1,6 @@
 package combinedClient;
 
-import java.io.*;
-import java.net.*;
+
 import javax.swing.SwingUtilities;
 
 import paraClient.OpCom;

@@ -27,8 +27,7 @@ public class IOServer extends Thread {
 	}
 
 	public void run() {
-		// for debuging
-		int counter = 0;
+
 		try {
 
 			while (true) {
@@ -36,15 +35,10 @@ public class IOServer extends Thread {
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 				ProcessInput receivedInput = (ProcessInput) SerializationUtils.deserialize(receivePacket.getData());	
-//				if (counter % 10000==0){
-//				System.out.println("RECEIVED POS: " + receivedInput.getPos() + "\n RECEIVED VEL: " + receivedInput.getVel());
-//				
-//				}
-//				counter++;
+
 				InetAddress IPAddress = receivePacket.getAddress();
 				int port = receivePacket.getPort();
 				sendData = DoubleToByteArray.toByteArray(controller.calculateOutput(receivedInput));
-				//System.out.println("Sending: " + DoubleToByteArray.toDouble(sendData));
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 				serverSocket.send(sendPacket);
 				controller.updateState(receivedInput);

@@ -6,14 +6,10 @@ public class Main {
 	private static final int GUIInputPrio=7;
 	private static final int DisplayPrio=6;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args)  {
 
-	
-		
-	
 		Controller controller = new Controller();
 		
-		//new CommandLineInput(controller,CommandLineInputPrio).start();
 		new IOServer(controller, IOPrio).start();
 		new ParametersServer(controller,GUIInputPrio).start();
 		new DisplayDataServer(controller, DisplayPrio).start();

@@ -17,19 +17,16 @@ public class ParametersServer extends Thread{
 		ServerSocket welcomeSocket;
 		Socket connectionSocket;
 		ObjectInputStream inFromClient;
-		ObjectOutputStream outToClient;
 
 		RegulParameters p;
 		try {
 			welcomeSocket = new ServerSocket(1800);
 			connectionSocket = welcomeSocket.accept();
 			inFromClient = new ObjectInputStream(connectionSocket.getInputStream());
-			outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
 			try {
 				while(true) {
 					p = (RegulParameters) inFromClient.readObject();
 					controller.setRegulParameters(p);
-					//byts ut mot controller.setRegulParameters
 				} 
 			}
 			catch (ClassNotFoundException e) {

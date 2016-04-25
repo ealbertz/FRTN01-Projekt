@@ -18,7 +18,7 @@ public class RegulParametersClient extends Thread {
 		Socket clientSocket;
 
 		try {
-			clientSocket = new Socket("localhost", 1800);
+			clientSocket = new Socket("94.246.117.31", 1800);
 			outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			try {
 				while (true) {

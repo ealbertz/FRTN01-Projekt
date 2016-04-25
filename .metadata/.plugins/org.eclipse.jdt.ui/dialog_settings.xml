@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="/h/d6/o/ine11eal/Documents/FRTN01" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="RefactoringWizard.preview">
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateSimilarElements"/>
@@ -14,17 +12,33 @@
 		<item value="false" key="updateTextualMatches"/>
 	</section>
 	<section name="FatJarPackageWizard">
-		<item value="/h/d6/o/ine11eal/Documents/FRTN01/FRTN01-Projekt" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="Main (1) - Servo" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="/h/d6/o/ine11eal/Documents/FRTN01/Servo.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/FRTN01-Projekt" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
+		<item value="UDPClient - Server-Client" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/UDPTest/Client.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
-			<item value="/h/d6/o/ine11eal/Documents/FRTN01/Servo.jar"/>
-			<item value="/h/d6/o/ine11eal/Documents/FRTN01/Client.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/UDPTest/Client.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/UDPTest/Server.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/DCServo/Server.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/DCServo/Forward.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/DCServo/IOClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/DCServo/GUIClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/Test/IOClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/Test/GUIClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/Test/Server.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/Server.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/OIClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/ServerSetup/GUIClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/CombinedClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/Server.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/DisplayDataClient.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/SendDataFromProcess.jar"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/Executbles/GUIInput.jar"/>
+			<item value="/home/jacobm/Realtidssystem/Executbles/Server.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
-			<item value="/h/d6/o/ine11eal/Documents/FRTN01/FRTN01-Projekt.xml"/>
+			<item value="/home/.disk/merged/sperry-02.control.lth.se/primary/e/home/jacobm/Realtidssystem/FRTN01-Projekt"/>
 			<item value=".xml"/>
 		</list>
 	</section>
@@ -41,11 +55,15 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
-	</section>
-	<section name="BuildPathsPropertyPage">
-		<item value="2" key="pageIndex"/>
+		<item value="true" key="RunnableJar.export.ipwarning"/>
 	</section>
 	<section name="quick_assist_proposal_size">
+	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="0" key="pageIndex"/>
+	</section>
+	<section name="NewPackageWizardPage">
+		<item value="false" key="create_package_info_java"/>
 	</section>
 	<section name="completion_proposal_size">
 	</section>

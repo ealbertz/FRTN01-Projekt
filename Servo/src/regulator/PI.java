@@ -7,6 +7,8 @@ public class PI {
 
 	private double I;
 
+	//for debugging
+	private int counter=0;
 	// Constructor
 	public PI(String name) {
 		p = new PIParameters();
@@ -26,6 +28,11 @@ public class PI {
 
 	// Updates the controller state.
 	public synchronized void updateState(double r, double y) {
+		if(counter <100){
+			System.out.println("In Update State: old I: "+ I + " r: " +r + " y: "+y);
+			counter++;
+		}
+		
 		I = I + ((p.K * p.h )/ p.Ti) * (r - y);
 
 	}

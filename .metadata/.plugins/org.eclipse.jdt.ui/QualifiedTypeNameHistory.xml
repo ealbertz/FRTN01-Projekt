@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="regulatorServer.CommandLineInput"/>
+<fullyQualifiedTypeName name="communication.RegulParameters"/>
+<fullyQualifiedTypeName name="display.DisplayDataServer"/>
+<fullyQualifiedTypeName name="paraClient.OpCom"/>
+<fullyQualifiedTypeName name="communication.DisplayData"/>
+<fullyQualifiedTypeName name="communication.PlotData"/>
+</qualifiedTypeNameHistroy>

@@ -25,7 +25,7 @@ public class DisplayDataClient extends Thread {
 
 	public void run () {
 		try {
-			clientSocket = new Socket("localhost", 1500);
+			clientSocket = new Socket("94.246.117.31", 1500);
 			outToServer = new ObjectOutputStream(clientSocket.getOutputStream());
 			inFromServer = new ObjectInputStream(clientSocket.getInputStream());
 			try {

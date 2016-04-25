@@ -1,5 +1,0 @@
-package regulator;
-
-public class ControllerWithObserver {
-	private ControlParameters cp;
-}
